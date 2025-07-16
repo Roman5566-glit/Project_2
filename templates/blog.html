@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/static/style_blog.css">
+</head>
+<body class="body">
+    <h1 class="h1">Мой блог</h1>
+    <div>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('add_post') }}" class="btn">
+                Add New Post
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn">
+                Logout
+            </a>
+        {% endif %}
+        {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('login') }}" class="btn">
+                Login
+            </a>
+            <a href="{{ url_for('register') }}" class="btn">
+                Register
+            </a>
+        {% endif %}
+    </div>
+    <div class="blog">
+        {% for i in posts %}
+        <div class="card">
+            <h2><a class="a" href="{{ url_for('post', post_id=i.id) }}">{{i.title}}</a></h2>
+            <p>{{i.content}}</p>
+            <p>{{i.date}}</p>
+            <p class="author">{{i.username}}</p>
+            {% if current_user.is_authenticated %}
+                <button onclick="location.href='{{ url_for('like_post', post_id=post.id) }}'">
+                    {% if post.id in post.liked_posts %}
+                        <img src="/static/like.png", height="25">
+                    {% else %}
+                        <img src="/static/no_like.png" height="25">
+                    {% endif %}
+                    <span>{{ post.likes }}</span>
+                </button>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

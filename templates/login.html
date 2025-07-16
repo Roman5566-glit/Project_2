@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="login">
+        <h1>Form for login</h1>
+        <form>
+            <label>Acount: </label>
+            <input type="text" name="username" required>
+            <label>Password: </label>
+            <input type="password" name="password" required>
+            <button type = "submit">Login in</button>
+            {% if message %}
+                <p class="message">{{ message }}</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
